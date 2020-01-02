@@ -1,23 +1,16 @@
-import React, { Component } from "react";
+import React from 'react';
+import Note from '../NoteCard/Note';
 
-import "./NoteList.css";
-import NoteCard from "../NoteCard/NoteCard.js";
 
-class NoteList extends Component {
-  render() {
-    return (
-      <li>
-        {this.props.notes.map(noteCard => (
-          <NoteCard
-            key={noteCard.id}
-            details={noteCard.content}
-            name={noteCard.name}
-            date={noteCard.modified}
-          />
-        ))}
-      </li>
-    );
-  }
+function NoteList(props) {
+  const notes = props.notes.map(note => <li className='note' key={note.id}><Note note={note} /></li>);
+  return (
+    <>
+      <ul>
+        {notes}
+      </ul>
+    </>
+  );
 }
 
 export default NoteList;

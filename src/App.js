@@ -1,51 +1,35 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import { Route } from "react-router-dom";
-import "./App.css";
-import SideBar from "./SideBar/SideBar.js";
-import NoteList from "./NoteList/NoteList.js";
-import STORE from "./dummy-store.js";
+import React from 'react';
+import './App.css';
+import { Route, Link, Switch } from 'react-router-dom';
+import Sidebar from './SideBar/SideBar';
+import NoteList from './NoteList/NoteList';
+import Note from './NoteCard/Note'
+import store from './dummy-store';
 
-class App extends Component {
+class App extends React.Component {
   state = {
-    folders: STORE.folders,
-    notes: STORE.notes,
-    page: "",
-    selectedFolderId: "",
-    selectedNoteId: ""
-  };
+    folders: store.folders,
+    notes: store.notes
+  }
 
   render() {
-    const otherFolders = this.state.folders.map((folderData, idx) => (
-      <Route
-        path={"/folder" + idx + 1}
-        render={() => (
-          <NoteList
-            notes={this.state.notes.filter(note => note.id === folderData.id)}
-          />
-        )}
-      />
-    ));
-
-    console.log(this.state.folders);
     return (
-      <div>
-        <header className="header">
-          <h1>
-            <Link to={"/"}>Noteful</Link>
-          </h1>
+      <>
+        <header>
+          <Link to='/'>
+            <h1>Noteful</h1>
+          </Link>
         </header>
-        <nav className="sideBar">
-          <SideBar folders={this.state.folders} />
-        </nav>
-        <main className="noteList">
-          <Route
-            path="/"
-            render={() => <NoteList notes={this.state.notes} />}
-          />
-          {otherFolders}
+        <Sidebar notes={this.state.notes} folders={this.state.folders} />
+        <main>
+          <Switch>
+            <Route exact path='/' render={() => <NoteList notes={this.state.notes} />} />
+            <Route exact path='/folder/:id' render={({ match }) => <NoteList notes={this.state.notes.filter(note => note.folderId === match.params.id)} />} />
+            <Route exact path='/note/:id' render={({ match }) => <Note note={this.state.notes.find(note => note.id === match.params.id)} />} />
+            <Route render={() => <p>There are no notes to display.</p>} />
+          </Switch>
         </main>
-      </div>
+      </>
     );
   }
 }
