@@ -5,6 +5,8 @@ import Sidebar from "./SideBar/SideBar";
 import NoteList from "./NoteList/NoteList";
 import Note from "./NoteCard/Note";
 import NotefulContext from "./NotefulContext";
+import AddFolder from "./AddFolder/AddFolder";
+import AddNote from "./AddNote/AddNote";
 
 class App extends React.Component {
   state = {
@@ -27,27 +29,7 @@ class App extends React.Component {
     });
   };
 
-  deleteNote = noteId => {
-    const noteUrl = `http://localhost:9090/notes/${noteId}`;
-    fetch(noteUrl, {
-      method: "DELETE",
-      headers: {
-        "content-type": "application/json"
-      }
-    })
-      .then(res => {
-        if (!res.ok) {
-          throw new Error(res.status);
-        }
-      })
-      .catch(error => this.setState({ error }));
-    const filteredNotes = this.state.notes.filter(note => noteId !== note.id);
-    this.setState({
-      notes: filteredNotes
-    });
-  };
-
-  componentDidMount() {
+  fetchApi() {
     const folderUrl = "http://localhost:9090/folders";
     const notesUrl = "http://localhost:9090/notes";
     fetch(folderUrl)
@@ -71,16 +53,83 @@ class App extends React.Component {
       .catch(error => this.setState({ error }));
   }
 
+  handleAddNote(event) {
+    event.preventDefault();
+    const newNoteName = event.target.addNoteName.value;
+    const noteUrl = `http://localhost:9000/notes/${newNoteName}`;
+    fetch(noteUrl, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json"
+      }
+    })
+      .then(res => {
+        if (!res.ok) {
+          throw new Error(res.status);
+        }
+      })
+      .catch(error => console.log(error));
+    // .catch(error => this.setState({error}));
+  }
+
+  handleFolderSubmit(event) {
+    event.preventDefault();
+    const folderName = event.target.folder.value;
+    console.log(JSON.stringify(folderName));
+    const folderUrl = `http://localhost:9090/folders`;
+    fetch(folderUrl, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "content-type": "application/json"
+      },
+      body: JSON.stringify(folderName)
+    })
+      .then(res => {
+        if (!res.ok) {
+          throw new Error(res.status);
+        }
+      })
+      .catch(error => console.log(error));
+    // .catch(error => this.setState({error}));
+    // this.fetchApi();
+  }
+
+  deleteNote = noteId => {
+    const noteUrl = `http://localhost:9090/notes/${noteId}`;
+    fetch(noteUrl, {
+      method: "DELETE",
+      headers: {
+        "content-type": "application/json"
+      }
+    })
+      .then(res => {
+        if (!res.ok) {
+          throw new Error(res.status);
+        }
+      })
+      .catch(error => this.setState({ error }));
+    const filteredNotes = this.state.notes.filter(note => noteId !== note.id);
+    this.setState({
+      notes: filteredNotes
+    });
+  };
+
+  componentDidMount() {
+    this.fetchApi();
+  }
+
   render() {
     const contextValue = {
       notes: this.state.notes,
       folders: this.state.folders,
-      deleteNote: this.deleteNote
+      deleteNote: this.deleteNote,
+      handleFolderSubmit: this.handleFolderSubmit
     };
     return (
       <NotefulContext.Provider value={contextValue}>
         <header>
-          <Link to="/">
+          <Link to="/" className="header">
             <h1>Noteful</h1>
           </Link>
         </header>
@@ -104,6 +153,8 @@ class App extends React.Component {
                 />
               )}
             />
+            <Route exact path="/addnote" component={AddNote} />
+            <Route exact path="/addfolder" component={AddFolder} />
             <Route render={() => <p>There are no notes to display.</p>} />
           </Switch>
         </main>

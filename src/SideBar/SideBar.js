@@ -1,12 +1,9 @@
 import React, { Component } from "react";
 import FolderCard from "../FolderCard/FolderCard";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Link } from "react-router-dom";
 import "./SideBar.css";
-import NotefulContext from "../NotefulContext";
 
 class Sidebar extends Component {
-  static contextType = NotefulContext;
-
   render() {
     return (
       <>
@@ -31,6 +28,7 @@ class Sidebar extends Component {
           />
           <Route component={FolderCard} />
         </Switch>
+        <Link to="/addfolder">+</Link>
       </>
     );
   }
