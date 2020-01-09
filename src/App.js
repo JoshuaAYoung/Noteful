@@ -22,6 +22,12 @@ class App extends React.Component {
     });
   };
 
+  addFolder = newFolder => {
+    this.setState(
+      {folders: [...this.state.folders, newFolder]}
+    )
+  }
+
   setNotes = notes => {
     this.setState({
       notes,
@@ -62,6 +68,7 @@ class App extends React.Component {
       headers: {
         "content-type": "application/json"
       }
+
     })
       .then(res => {
         if (!res.ok) {
@@ -70,9 +77,10 @@ class App extends React.Component {
       })
       .catch(error => console.log(error));
     // .catch(error => this.setState({error}));
+
   }
 
-  handleFolderSubmit(event) {
+  handleFolderSubmit = event => {
     event.preventDefault();
     const folderName = event.target.folder.value;
     console.log(JSON.stringify(folderName));
@@ -83,16 +91,23 @@ class App extends React.Component {
         Accept: "application/json",
         "content-type": "application/json"
       },
-      body: JSON.stringify(folderName)
+      body: JSON.stringify({name: folderName})
     })
       .then(res => {
         if (!res.ok) {
           throw new Error(res.status);
         }
+          //console.log(".res.ok");
+      return res.json();
+        
       })
+
+      .then(folder => {this.addFolder(folder)})
+
       .catch(error => console.log(error));
-    // .catch(error => this.setState({error}));
-    // this.fetchApi();
+
+      //.catch(error => this.setState({error}));
+      
   }
 
   deleteNote = noteId => {

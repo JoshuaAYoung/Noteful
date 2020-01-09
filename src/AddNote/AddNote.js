@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import notefulContext from "../NotefulContext";
 
-export default class AddNote extends React.Component {
+export default class AddNote extends Component {
   static contextType = notefulContext;
 
   render() {
