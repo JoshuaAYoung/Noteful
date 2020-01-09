@@ -35,6 +35,12 @@ class App extends React.Component {
     });
   };
 
+  addNotes = newNotes => {
+    this.setState(
+      {notes: [...this.state.notes, newNotes]}
+    )
+  } 
+
   fetchApi() {
     const folderUrl = "http://localhost:9090/folders";
     const notesUrl = "http://localhost:9090/notes";
@@ -59,7 +65,7 @@ class App extends React.Component {
       .catch(error => this.setState({ error }));
   }
 
-  handleAddNote(event) {
+  handleAddNote = event => {
     event.preventDefault();
     const newNoteName = event.target.addNoteName.value;
     const noteUrl = `http://localhost:9000/notes/${newNoteName}`;
@@ -67,14 +73,20 @@ class App extends React.Component {
       method: "POST",
       headers: {
         "content-type": "application/json"
-      }
-
-    })
+      },
+      body: JSON.stringify({name: newNoteName})
+   })
       .then(res => {
         if (!res.ok) {
           throw new Error(res.status);
         }
+
+        return res.json();
       })
+
+      .then(addNoteName => {this.addNotes(addNoteName)})
+
+      
       .catch(error => console.log(error));
     // .catch(error => this.setState({error}));
 
