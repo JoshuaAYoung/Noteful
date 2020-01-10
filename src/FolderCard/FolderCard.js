@@ -22,8 +22,4 @@ class FolderCard extends Component {
   }
 }
 
-FolderCard.defaultProps = {
-  folders: [{ id: "0", name: "empty" }]
-};
-
 export default FolderCard;

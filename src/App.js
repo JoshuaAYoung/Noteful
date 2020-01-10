@@ -7,6 +7,7 @@ import Note from "./NoteCard/Note";
 import NotefulContext from "./NotefulContext";
 import AddFolder from "./AddFolder/AddFolder";
 import AddNote from "./AddNote/AddNote";
+import ErrorBoundary from "./ErrorBoundary";
 
 class App extends React.Component {
   state = {
@@ -23,10 +24,8 @@ class App extends React.Component {
   };
 
   addFolder = newFolder => {
-    this.setState(
-      {folders: [...this.state.folders, newFolder]}
-    )
-  }
+    this.setState({ folders: [...this.state.folders, newFolder] });
+  };
 
   setNotes = notes => {
     this.setState({
@@ -36,10 +35,8 @@ class App extends React.Component {
   };
 
   addNotes = newNotes => {
-    this.setState(
-      {notes: [...this.state.notes, newNotes]}
-    )
-  } 
+    this.setState({ notes: [...this.state.notes, newNotes] });
+  };
 
   fetchApi() {
     const folderUrl = "http://localhost:9090/folders";
@@ -67,60 +64,71 @@ class App extends React.Component {
 
   handleAddNote = event => {
     event.preventDefault();
+    let today = new Date();
+    let timeModified =
+      today.getFullYear() +
+      "-" +
+      (today.getMonth() + 1) +
+      "-" +
+      today.getDate() +
+      "T" +
+      today.getHours() +
+      ":" +
+      today.getMinutes() +
+      ":" +
+      today.getSeconds();
     const newNoteName = event.target.addNoteName.value;
-    const noteUrl = `http://localhost:9000/notes/${newNoteName}`;
+    const newNoteContent = event.target.addNoteContent.value;
+    const newFolderLocation = event.target.noteFolderSelect.value;
+    const noteUrl = "http://localhost:9090/notes";
     fetch(noteUrl, {
       method: "POST",
       headers: {
         "content-type": "application/json"
       },
-      body: JSON.stringify({name: newNoteName})
-   })
+      body: JSON.stringify({
+        name: newNoteName,
+        modified: timeModified,
+        folderId: newFolderLocation,
+        content: newNoteContent
+      })
+    })
       .then(res => {
         if (!res.ok) {
           throw new Error(res.status);
         }
-
         return res.json();
       })
-
-      .then(addNoteName => {this.addNotes(addNoteName)})
-
-      
+      .then(addNoteName => {
+        this.addNotes(addNoteName);
+      })
       .catch(error => console.log(error));
-    // .catch(error => this.setState({error}));
-
-  }
+  };
 
   handleFolderSubmit = event => {
     event.preventDefault();
     const folderName = event.target.folder.value;
     console.log(JSON.stringify(folderName));
-    const folderUrl = `http://localhost:9090/folders`;
+    const folderUrl = "http://localhost:9090/folders";
     fetch(folderUrl, {
       method: "POST",
       headers: {
         Accept: "application/json",
         "content-type": "application/json"
       },
-      body: JSON.stringify({name: folderName})
+      body: JSON.stringify({ name: folderName })
     })
       .then(res => {
         if (!res.ok) {
           throw new Error(res.status);
         }
-          //console.log(".res.ok");
-      return res.json();
-        
+        return res.json();
       })
-
-      .then(folder => {this.addFolder(folder)})
-
+      .then(folder => {
+        this.addFolder(folder);
+      })
       .catch(error => console.log(error));
-
-      //.catch(error => this.setState({error}));
-      
-  }
+  };
 
   deleteNote = noteId => {
     const noteUrl = `http://localhost:9090/notes/${noteId}`;
@@ -151,7 +159,8 @@ class App extends React.Component {
       notes: this.state.notes,
       folders: this.state.folders,
       deleteNote: this.deleteNote,
-      handleFolderSubmit: this.handleFolderSubmit
+      handleFolderSubmit: this.handleFolderSubmit,
+      handleAddNote: this.handleAddNote
     };
     return (
       <NotefulContext.Provider value={contextValue}>
@@ -160,30 +169,34 @@ class App extends React.Component {
             <h1>Noteful</h1>
           </Link>
         </header>
-        <Sidebar notes={this.state.notes} folders={this.state.folders} />
+        <ErrorBoundary>
+          <Sidebar notes={this.state.notes} folders={this.state.folders} />
+        </ErrorBoundary>
         <main>
-          <Switch>
-            <Route exact path="/" component={NoteList} />} />
-            <Route
-              exact
-              path="/folder/:id"
-              render={({ match }) => <NoteList match={match} />}
-            />
-            <Route
-              exact
-              path="/note/:id"
-              render={({ match }) => (
-                <Note
-                  note={this.state.notes.find(
-                    note => note.id === match.params.id
-                  )}
-                />
-              )}
-            />
-            <Route exact path="/addnote" component={AddNote} />
-            <Route exact path="/addfolder" component={AddFolder} />
-            <Route render={() => <p>There are no notes to display.</p>} />
-          </Switch>
+          <ErrorBoundary>
+            <Switch>
+              <Route exact path="/" component={NoteList} />} />
+              <Route
+                exact
+                path="/folder/:id"
+                render={({ match }) => <NoteList match={match} />}
+              />
+              <Route
+                exact
+                path="/note/:id"
+                render={({ match }) => (
+                  <Note
+                    note={this.state.notes.find(
+                      note => note.id === match.params.id
+                    )}
+                  />
+                )}
+              />
+              <Route exact path="/addnote" component={AddNote} />
+              <Route exact path="/addfolder" component={AddFolder} />
+              <Route render={() => <p>There are no notes to display.</p>} />
+            </Switch>
+          </ErrorBoundary>
         </main>
       </NotefulContext.Provider>
     );
