@@ -8,14 +8,14 @@ import PropTypes from "prop-types";
 class Sidebar extends Component {
   render() {
     return (
-      <>
-        <Switch>
-          <ErrorBoundary>
+      <div className="sidebar">
+        <ErrorBoundary>
+          <Switch>
             <Route
               path="/note/:id"
               render={routerProps => (
                 <>
-                  <h2>
+                  <h2 className="noteContent">
                     {
                       this.props.folders.find(folder => {
                         const folderId = this.props.notes.find(
@@ -29,13 +29,15 @@ class Sidebar extends Component {
                 </>
               )}
             />
-          </ErrorBoundary>
-          <ErrorBoundary>
             <Route component={FolderCard} />
-          </ErrorBoundary>
-        </Switch>
-        <Link to="/addfolder">+</Link>
-      </>
+          </Switch>
+        </ErrorBoundary>
+        <ErrorBoundary>
+          <Link to="/addfolder" className="addButton">
+            + Add a folder
+          </Link>
+        </ErrorBoundary>
+      </div>
     );
   }
 }

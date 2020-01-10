@@ -6,20 +6,19 @@ class AddFolder extends Component {
 
   render() {
     return (
-      <div>
-        <h1>Add a folder</h1>
+      <div className="folderFormContainer">
+        <h2 className="formTitle">Add a folder</h2>
         <form
-          className="folderForm"
+          className="form"
           onSubmit={e => this.context.handleFolderSubmit(e)}
         >
-          <label htmlFor="folder">Name</label>
-          <input
-            type="text"
-            className="folderInput"
-            name="folder"
-            id="folder"
-          />
-          <button type="submit">Add Folder</button>
+          <label htmlFor="folder" className="inputLabel">
+            Name
+          </label>
+          <input type="text" className="formInput" name="folder" id="folder" />
+          <button type="submit" className="submitButton">
+            Add Folder
+          </button>
         </form>
       </div>
     );

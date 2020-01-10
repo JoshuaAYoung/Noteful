@@ -10,12 +10,15 @@ class Note extends Component {
   render() {
     return (
       <>
-        <Link to={`/note/${this.props.note.id}`}>
+        <Link to={`/note/${this.props.note.id}`} className="noteTitle">
           <h3>{this.props.note.name}</h3>
         </Link>
-        <p>{this.props.note.modified}</p>
+        <p className="noteDate">{this.props.note.modified}</p>
         <Link to="/">
-          <button onClick={() => this.context.deleteNote(this.props.note.id)}>
+          <button
+            onClick={() => this.context.deleteNote(this.props.note.id)}
+            className="deleteButton"
+          >
             Delete
           </button>
         </Link>

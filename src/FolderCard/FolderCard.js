@@ -8,15 +8,15 @@ class FolderCard extends Component {
 
   render() {
     const folders = this.context.folders.map(folder => (
-      <li key={folder.id} className="folder">
+      <li key={folder.id} className="folderInstance">
         <NavLink to={`/folder/${folder.id}`}>
-          <p>{folder.name}</p>
+          <h2 className="folderName">{folder.name}</h2>
         </NavLink>
       </li>
     ));
     return (
-      <div className="folder-card">
-        <ul>{folders}</ul>
+      <div className="folderListContainer">
+        <ul className="folderList">{folders}</ul>
       </div>
     );
   }

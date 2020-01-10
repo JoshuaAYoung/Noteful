@@ -3,19 +3,18 @@ import { Link } from "react-router-dom";
 import Note from "../NoteCard/Note";
 import NotefulContext from "../NotefulContext";
 import ErrorBoundary from "../ErrorBoundary";
-import PropTypes from "prop-types";
 
 class NoteList extends Component {
   static contextType = NotefulContext;
 
   render() {
     return (
-      <>
-        <ul>
+      <div className="noteListContainer">
+        <ul className="noteList">
           {this.props.match.path === "/"
             ? this.context.notes.map(note => (
                 <ErrorBoundary key={note.id}>
-                  <li className="note" key={note.id}>
+                  <li className="noteInstance" key={note.id}>
                     <Note note={note} />
                   </li>
                 </ErrorBoundary>
@@ -24,26 +23,18 @@ class NoteList extends Component {
                 .filter(note => note.folderId === this.props.match.params.id)
                 .map(note => (
                   <ErrorBoundary key={note.id}>
-                    <li className="note" key={note.id}>
+                    <li className="noteInstance" key={note.id}>
                       <Note note={note} />
                     </li>
                   </ErrorBoundary>
                 ))}
         </ul>
-        <Link to="/addnote">+</Link>
-      </>
+        <Link to="/addnote" className="addButton">
+          + Add a note
+        </Link>
+      </div>
     );
   }
 }
-
-// NoteList.propTypes = {
-//   notes: PropTypes.arrayOf(
-//     PropTypes.shape({
-//       id: PropTypes.string.isRequired,
-//       name: PropTypes.string.isRequired,
-//       modified: PropTypes.string.isRequired
-//     })
-//   ).isRequired
-// };
 
 export default NoteList;

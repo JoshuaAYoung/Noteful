@@ -165,14 +165,14 @@ class App extends React.Component {
     return (
       <NotefulContext.Provider value={contextValue}>
         <header>
-          <Link to="/" className="header">
+          <Link to="/" className="appTitle">
             <h1>Noteful</h1>
           </Link>
         </header>
-        <ErrorBoundary>
-          <Sidebar notes={this.state.notes} folders={this.state.folders} />
-        </ErrorBoundary>
-        <main>
+        <main className="mainContainer">
+          <ErrorBoundary>
+            <Sidebar notes={this.state.notes} folders={this.state.folders} />
+          </ErrorBoundary>
           <ErrorBoundary>
             <Switch>
               <Route exact path="/" component={NoteList} />} />
