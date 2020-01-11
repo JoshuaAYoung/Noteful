@@ -175,20 +175,29 @@ class App extends React.Component {
           </ErrorBoundary>
           <ErrorBoundary>
             <Switch>
-              <Route exact path="/" component={NoteList} />} />
+              <Route
+                exact
+                path="/"
+                render={({ history, match }) => (
+                  <NoteList history={history} match={match} />
+                )}
+              />
               <Route
                 exact
                 path="/folder/:id"
-                render={({ match }) => <NoteList match={match} />}
+                render={({ match, history }) => (
+                  <NoteList history={history} match={match} />
+                )}
               />
               <Route
                 exact
                 path="/note/:id"
-                render={({ match }) => (
+                render={({ match, history }) => (
                   <Note
                     note={this.state.notes.find(
                       note => note.id === match.params.id
                     )}
+                    history={history}
                   />
                 )}
               />

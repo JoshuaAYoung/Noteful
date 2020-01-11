@@ -15,7 +15,7 @@ class NoteList extends Component {
             ? this.context.notes.map(note => (
                 <ErrorBoundary key={note.id}>
                   <li className="noteInstance" key={note.id}>
-                    <Note note={note} />
+                    <Note note={note} history={this.props.history} />
                   </li>
                 </ErrorBoundary>
               ))
@@ -24,7 +24,7 @@ class NoteList extends Component {
                 .map(note => (
                   <ErrorBoundary key={note.id}>
                     <li className="noteInstance" key={note.id}>
-                      <Note note={note} />
+                      <Note note={note} history={this.props.history} />
                     </li>
                   </ErrorBoundary>
                 ))}
