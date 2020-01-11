@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import NotefulContext from "../NotefulContext";
+import "./AddNote.css";
 
 export default class AddNote extends Component {
   static contextType = NotefulContext;
@@ -11,13 +12,16 @@ export default class AddNote extends Component {
         <h2 className="formTitle">Create Note</h2>
         <form className="form" onSubmit={e => this.context.handleAddNote(e)}>
           <label htmlFor="addNoteName" className="inputLabel">
-            Note name
+            Note Name:
           </label>
           <input type="text" id="addNoteName" className="formInput" />
           <label htmlFor="folder" className="inputLabel">
-            Note content
+            Note Content:
           </label>
           <input type="text" id="addNoteContent" className="formInput" />
+          <label htmlFor="noteFolderSelect" className="inputLabel">
+            Folder Location:
+          </label>
           <select id="noteFolderSelect" className="dropdown">
             <option value={null}>...</option>
             {folders.map(folder => (

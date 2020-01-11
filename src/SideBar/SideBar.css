@@ -1,5 +1,7 @@
 .sidebar {
-  padding: 0 100px;
+  margin: 0 3%;
+    width: 150px;
+    align-self: flex-start;
 }
 
 .noteContent {

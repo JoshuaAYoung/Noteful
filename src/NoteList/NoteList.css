@@ -1,5 +1,5 @@
 .noteListContainer {
-  width: 100%;
+  width: 80%;
   display: block;
 }
 
@@ -11,5 +11,10 @@
 
 .noteInstance {
   display: block;
-  width: 20%;
+  width: auto;
+  margin: 20px;
+}
+
+.formTitle {
+  margin-bottom: 15px;
 }

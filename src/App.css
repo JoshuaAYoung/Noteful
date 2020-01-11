@@ -28,7 +28,7 @@ li {
 }
 
 .mainContainer {
-  display: inline-block;
+  display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
@@ -82,11 +82,4 @@ li {
   background-color:rgb(173, 167, 228);;
 }
 
-@media only screen and (min-width: 820px) {
-  .mainContainer {
-    flex-direction: column;
-    
-  }
 
-
-}

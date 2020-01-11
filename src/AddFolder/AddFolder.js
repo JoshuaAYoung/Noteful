@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import NotefulContext from "../NotefulContext";
+import "./AddFolder.css"
 
 class AddFolder extends Component {
   static contextType = NotefulContext;
@@ -13,7 +14,7 @@ class AddFolder extends Component {
           onSubmit={e => this.context.handleFolderSubmit(e)}
         >
           <label htmlFor="folder" className="inputLabel">
-            Name
+            Folder Name:
           </label>
           <input
             type="text"

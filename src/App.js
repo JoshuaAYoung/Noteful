@@ -79,7 +79,7 @@ class App extends React.Component {
       today.getSeconds();
     const newNoteName = event.target.addNoteName.value;
     const newNoteContent = event.target.addNoteContent.value;
-    const newFolderLocation = event.target.noteFolderSelect.value;
+    const newFolderLocation = this.state.folders.find(folder => event.target.noteFolderSelect.value === folder.name).id;
     const noteUrl = "http://localhost:9090/notes";
     fetch(noteUrl, {
       method: "POST",
