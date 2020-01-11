@@ -19,14 +19,14 @@ class Note extends Component {
           <h3>{this.props.note.name}</h3>
         </Link>
         <p className="noteDate">{this.props.note.modified}</p>
-        <button onClick={this.onDelete} className="deleteButton">
-          Delete
-        </button>
         <Route
           path="/note/:id"
           render={() => <p>{this.props.note.content}</p>}
         />
-      </>
+        <button onClick={this.onDelete} className="deleteButton">
+          Delete
+        </button>
+        </>
     );
   }
 }

@@ -7,14 +7,16 @@
   max-width: 380px;
   padding: 8px 0 8px 8px;
   position: relative;
+  display: block;
+  justify-content: space-between;
 }
 
 .deleteButton {
   box-sizing: border-box;
+  max-width: 100px;
   display: inline-block;
   font-size: 1rem;
   padding: 0.35em 1.2em;
-  width: auto;
   text-align: center;
   border:0.1em solid black;
   border-radius: 0.20em;
@@ -23,6 +25,7 @@
   text-align: center;
   transition: all 0.2s;
   background-color: transparent;
+  margin-top: 10px;  
   }
 
 .deleteButton:hover {
@@ -30,28 +33,14 @@
   background-color:rgb(173, 167, 228);;
 }
 
-/* .deleteButton {
-  --note-button-width: 50px;
-  --note-button-height: 32px;
-  background-color: black;
-  border: 0;
-  color: #bdbcbc;
-  float: right;
-  font-size: 12px;
-  }
-.deleteButton:hover {
-  background-color: #bd0909;
-  color: white;
-  cursor: pointer;
-  font-weight: bold;
-} */
+
 
 .noteTitle {
   font-family: "Montserrat", sans-serif;
   font-size: 20px;
   margin: 0;
-  max-width: 80%;
-  min-height: 24px;
+  
+  min-height: 20px;
 }
 
 .noteTitle :hover {
@@ -59,8 +48,10 @@
 }
 
 .noteDate {
-  bottom: 8px;
-  color: #a7a5a5;
-  font-size: 14px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  align-content: center;
+  color: #696767;
+  font-size: 12px;
   
 }

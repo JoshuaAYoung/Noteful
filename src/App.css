@@ -28,12 +28,37 @@ li {
 }
 
 .mainContainer {
-  display: flex;
-  flex-direction: column;
+  display: inline-block;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+  flex-wrap: wrap;
 }
 
 .appTitle {
   text-align: center;
+}
+
+.backButton {
+  box-sizing: border-box;
+  display: inline-block;
+  font-size: 1rem;
+  padding: 0.35em 1.2em;
+  width: auto;
+  text-align: center;
+  border:0.1em solid black;
+  border-radius: 0.20em;
+  margin: 0 0.3em 0.3em 0;
+  text-decoration: none;
+  text-align: center;
+  transition: all 0.2s;
+  background-color: transparent
+}
+
+.backButton:hover {
+  color:#000000;
+  background-color:rgb(173, 167, 228);;
 }
 
 .addButton {
@@ -52,8 +77,16 @@ li {
   background-color: transparent
 }
 
+.addButton:hover {
+  color:#000000;
+  background-color:rgb(173, 167, 228);;
+}
+
 @media only screen and (min-width: 820px) {
   .mainContainer {
-    flex-direction: row;
+    flex-direction: column;
+    
   }
+
+
 }
