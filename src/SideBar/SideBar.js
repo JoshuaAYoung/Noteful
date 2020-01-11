@@ -25,7 +25,7 @@ class Sidebar extends Component {
                       }).name
                     }
                   </h2>
-                  <button onClick={routerProps.history.goBack}>Back</button>
+                  <button className="backButton" onClick={routerProps.history.goBack}>Back</button>
                 </>
               )}
             />

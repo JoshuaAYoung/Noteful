@@ -20,7 +20,7 @@ class Note extends Component {
         </Link>
         <p className="noteDate">{this.props.note.modified}</p>
         <button onClick={this.onDelete} className="deleteButton">
-          Delete Test
+          Delete
         </button>
         <Route
           path="/note/:id"
