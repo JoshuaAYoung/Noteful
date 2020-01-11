@@ -37,6 +37,19 @@ li {
 }
 
 .addButton {
+  box-sizing: border-box;
+  display: inline-block;
+  font-size: 1rem;
+  padding: 0.35em 1.2em;
+  width: auto;
+  text-align: center;
+  border:0.1em solid black;
+  border-radius: 0.20em;
+  margin: 0 0.3em 0.3em 0;
+  text-decoration: none;
+  text-align: center;
+  transition: all 0.2s;
+  background-color: transparent
 }
 
 @media only screen and (min-width: 820px) {

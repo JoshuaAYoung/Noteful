@@ -1,0 +1,66 @@
+.Note {
+  --note-height: 88px;
+  background-color: #010d1e;
+  color: #cacaca;
+  height: var(--note-height);
+  margin-bottom: 8px;
+  max-width: 380px;
+  padding: 8px 0 8px 8px;
+  position: relative;
+}
+
+.deleteButton {
+  box-sizing: border-box;
+  display: inline-block;
+  font-size: 1rem;
+  padding: 0.35em 1.2em;
+  width: auto;
+  text-align: center;
+  border:0.1em solid black;
+  border-radius: 0.20em;
+  margin: 0 0.3em 0.3em 0;
+  text-decoration: none;
+  text-align: center;
+  transition: all 0.2s;
+  background-color: transparent;
+  }
+
+.deleteButton:hover {
+  color:#000000;
+  background-color:rgb(173, 167, 228);;
+}
+
+/* .deleteButton {
+  --note-button-width: 50px;
+  --note-button-height: 32px;
+  background-color: black;
+  border: 0;
+  color: #bdbcbc;
+  float: right;
+  font-size: 12px;
+  }
+.deleteButton:hover {
+  background-color: #bd0909;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+} */
+
+.noteTitle {
+  font-family: "Montserrat", sans-serif;
+  font-size: 20px;
+  margin: 0;
+  max-width: 80%;
+  min-height: 24px;
+}
+
+.noteTitle :hover {
+  color: #FFB72F;
+}
+
+.noteDate {
+  bottom: 8px;
+  color: #a7a5a5;
+  font-size: 14px;
+  
+}
