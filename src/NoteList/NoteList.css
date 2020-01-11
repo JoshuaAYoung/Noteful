@@ -1,0 +1,15 @@
+.noteListContainer {
+  width: 100%;
+  display: block;
+}
+
+.noteList {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.noteInstance {
+  display: block;
+  width: 20%;
+}

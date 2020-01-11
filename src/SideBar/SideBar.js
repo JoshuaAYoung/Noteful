@@ -10,6 +10,11 @@ class Sidebar extends Component {
     return (
       <div className="sidebar">
         <ErrorBoundary>
+          <Link to="/addfolder" className="addButton">
+            + Add a folder
+          </Link>
+        </ErrorBoundary>
+        <ErrorBoundary>
           <Switch>
             <Route
               path="/note/:id"
@@ -31,11 +36,6 @@ class Sidebar extends Component {
             />
             <Route component={FolderCard} />
           </Switch>
-        </ErrorBoundary>
-        <ErrorBoundary>
-          <Link to="/addfolder" className="addButton">
-            + Add a folder
-          </Link>
         </ErrorBoundary>
       </div>
     );

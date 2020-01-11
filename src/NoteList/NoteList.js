@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Note from "../NoteCard/Note";
 import NotefulContext from "../NotefulContext";
 import ErrorBoundary from "../ErrorBoundary";
+import "./NoteList.css";
 
 class NoteList extends Component {
   static contextType = NotefulContext;
@@ -10,6 +11,9 @@ class NoteList extends Component {
   render() {
     return (
       <div className="noteListContainer">
+        <Link to="/addnote" className="addButton">
+          + Add a note
+        </Link>
         <ul className="noteList">
           {this.props.match.path === "/"
             ? this.context.notes.map(note => (
@@ -29,9 +33,6 @@ class NoteList extends Component {
                   </ErrorBoundary>
                 ))}
         </ul>
-        <Link to="/addnote" className="addButton">
-          + Add a note
-        </Link>
       </div>
     );
   }
