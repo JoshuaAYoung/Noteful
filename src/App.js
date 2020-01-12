@@ -13,7 +13,11 @@ class App extends React.Component {
   state = {
     folders: [],
     notes: [],
-    error: null
+    error: null,
+    tempFolderName: "",
+    tempNoteName: "",
+    tempNoteContent: "",
+    tempNoteLocation: ""
   };
 
   setFolders = folders => {
@@ -23,8 +27,20 @@ class App extends React.Component {
     });
   };
 
-  addFolder = newFolder => {
-    this.setState({ folders: [...this.state.folders, newFolder] });
+  addTempFolder = newFolder => {
+    this.setState({ tempFolderName: newFolder });
+  };
+
+  addTempNoteName = newName => {
+    this.setState({ tempNoteName: newName });
+  };
+
+  addTempNoteContent = newContent => {
+    this.setState({ tempNoteContent: newContent });
+  };
+
+  addTempNoteLocation = folderLocation => {
+    this.setState({ tempNoteLocation: folderLocation });
   };
 
   setNotes = notes => {
@@ -32,6 +48,10 @@ class App extends React.Component {
       notes,
       error: null
     });
+  };
+
+  addFolder = newFolder => {
+    this.setState({ folders: [...this.state.folders, newFolder] });
   };
 
   addNotes = newNotes => {
@@ -77,9 +97,11 @@ class App extends React.Component {
       today.getMinutes() +
       ":" +
       today.getSeconds();
-    const newNoteName = event.target.addNoteName.value;
-    const newNoteContent = event.target.addNoteContent.value;
-    const newFolderLocation = this.state.folders.find(folder => event.target.noteFolderSelect.value === folder.name).id;
+    const newNoteName = this.state.tempNoteName;
+    const newNoteContent = this.state.tempNoteContent;
+    const newFolderLocation = this.state.folders.find(
+      folder => this.state.tempNoteLocation === folder.name
+    ).id;
     const noteUrl = "http://localhost:9090/notes";
     fetch(noteUrl, {
       method: "POST",
@@ -103,11 +125,16 @@ class App extends React.Component {
         this.addNotes(addNoteName);
       })
       .catch(error => console.log(error));
+    this.setState({
+      tempNoteName: "",
+      tempNoteContent: "",
+      tempNoteLocation: ""
+    });
   };
 
   handleFolderSubmit = event => {
     event.preventDefault();
-    const folderName = event.target.folder.value;
+    const folderName = this.state.tempFolderName;
     console.log(JSON.stringify(folderName));
     const folderUrl = "http://localhost:9090/folders";
     fetch(folderUrl, {
@@ -128,6 +155,9 @@ class App extends React.Component {
         this.addFolder(folder);
       })
       .catch(error => console.log(error));
+    this.setState({
+      tempFolderName: ""
+    });
   };
 
   deleteNote = noteId => {
@@ -160,7 +190,11 @@ class App extends React.Component {
       folders: this.state.folders,
       deleteNote: this.deleteNote,
       handleFolderSubmit: this.handleFolderSubmit,
-      handleAddNote: this.handleAddNote
+      handleAddNote: this.handleAddNote,
+      addTempFolder: this.addTempFolder,
+      addTempNoteName: this.addTempNoteName,
+      addTempNoteContent: this.addTempNoteContent,
+      addTempNoteLocation: this.addTempNoteLocation
     };
     return (
       <NotefulContext.Provider value={contextValue}>

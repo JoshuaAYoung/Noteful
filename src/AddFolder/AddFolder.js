@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import NotefulContext from "../NotefulContext";
-import "./AddFolder.css"
+import "./AddFolder.css";
 
 class AddFolder extends Component {
   static contextType = NotefulContext;
@@ -22,6 +22,7 @@ class AddFolder extends Component {
             name="folder"
             id="folder"
             defaultValue=""
+            onChange={e => this.context.addTempFolder(e.target.value)}
           />
           <button type="submit" className="submitButton">
             Add Folder
