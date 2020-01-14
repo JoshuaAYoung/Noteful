@@ -54,9 +54,14 @@ class App extends React.Component {
     this.setState({ folders: [...this.state.folders, newFolder] });
   };
 
-  addNotes = newNotes => {
-    this.setState({ notes: [...this.state.notes, newNotes] });
+  addNote = newNote => {
+    this.setState({ notes: [...this.state.notes, newNote] });
+    const folderUrl = `/folders/${newNote.folderId}`
+    //history.push(folderUrl)
+
   };
+
+
 
   fetchApi() {
     const folderUrl = "http://localhost:9090/folders";
@@ -122,7 +127,7 @@ class App extends React.Component {
         return res.json();
       })
       .then(addNoteName => {
-        this.addNotes(addNoteName);
+        this.addNote(addNoteName);
       })
       .catch(error => console.log(error));
     this.setState({
@@ -153,11 +158,9 @@ class App extends React.Component {
       })
       .then(folder => {
         this.addFolder(folder);
+        this.addTempFolder("");
       })
       .catch(error => console.log(error));
-    this.setState({
-      tempFolderName: ""
-    });
   };
 
   deleteNote = noteId => {

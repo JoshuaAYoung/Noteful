@@ -23,6 +23,7 @@ class AddFolder extends Component {
             id="folder"
             defaultValue=""
             onChange={e => this.context.addTempFolder(e.target.value)}
+            value={this.context.tempFolderName}
           />
           <button type="submit" className="submitButton">
             Add Folder
