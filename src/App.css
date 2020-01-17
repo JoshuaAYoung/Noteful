@@ -47,18 +47,18 @@ li {
   padding: 0.35em 1.2em;
   width: auto;
   text-align: center;
-  border:0.1em solid black;
-  border-radius: 0.20em;
+  border: 0.1em solid black;
+  border-radius: 0.2em;
   margin: 0 0.3em 0.3em 0;
   text-decoration: none;
   text-align: center;
   transition: all 0.2s;
-  background-color: transparent
+  background-color: transparent;
 }
 
 .backButton:hover {
-  color:#000000;
-  background-color:rgb(173, 167, 228);;
+  color: #000000;
+  background-color: rgb(173, 167, 228);
 }
 
 .addButton {
@@ -68,18 +68,25 @@ li {
   padding: 0.35em 1.2em;
   width: auto;
   text-align: center;
-  border:0.1em solid black;
-  border-radius: 0.20em;
+  border: 0.1em solid black;
+  border-radius: 0.2em;
   margin: 0 0.3em 0.3em 0;
   text-decoration: none;
   text-align: center;
   transition: all 0.2s;
-  background-color: transparent
+  background-color: transparent;
 }
 
 .addButton:hover {
-  color:#000000;
-  background-color:rgb(173, 167, 228);;
+  color: #000000;
+  background-color: rgb(173, 167, 228);
 }
 
+.error {
+  color: red;
+  margin-top: 8px;
+}
 
+.inputLabel {
+  margin-top: 8px;
+}

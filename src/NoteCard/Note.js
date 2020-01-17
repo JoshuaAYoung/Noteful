@@ -26,7 +26,7 @@ class Note extends Component {
         <button onClick={this.onDelete} className="deleteButton">
           Delete
         </button>
-        </>
+      </>
     );
   }
 }

@@ -14,10 +14,16 @@ class App extends React.Component {
     folders: [],
     notes: [],
     error: null,
-    tempFolderName: "",
-    tempNoteName: "",
+    tempFolderName: {
+      value: "",
+      touched: false
+    },
+    tempNoteName: {
+      value: "",
+      touched: false
+    },
     tempNoteContent: "",
-    tempNoteLocation: ""
+    tempNoteLocation: "Important"
   };
 
   setFolders = folders => {
@@ -28,15 +34,27 @@ class App extends React.Component {
   };
 
   addTempFolder = newFolder => {
-    this.setState({ tempFolderName: newFolder });
+    this.setState({
+      tempFolderName: {
+        value: newFolder,
+        touched: true
+      }
+    });
   };
 
   addTempNoteName = newName => {
-    this.setState({ tempNoteName: newName });
+    this.setState({
+      tempNoteName: {
+        value: newName,
+        touched: true
+      }
+    });
   };
 
   addTempNoteContent = newContent => {
-    this.setState({ tempNoteContent: newContent });
+    this.setState({
+      tempNoteContent: newContent
+    });
   };
 
   addTempNoteLocation = folderLocation => {
@@ -56,12 +74,7 @@ class App extends React.Component {
 
   addNote = newNote => {
     this.setState({ notes: [...this.state.notes, newNote] });
-    const folderUrl = `/folders/${newNote.folderId}`
-    //history.push(folderUrl)
-
   };
-
-
 
   fetchApi() {
     const folderUrl = "http://localhost:9090/folders";
@@ -87,6 +100,13 @@ class App extends React.Component {
       .catch(error => this.setState({ error }));
   }
 
+  getFolderId = (e, name) => {
+    e.preventDefault();
+    console.log("callback", name);
+    console.log(this.state.folders.find(folder => name === folder.name));
+    return this.state.folders.find(folder => name === folder.name).id;
+  };
+
   handleAddNote = event => {
     event.preventDefault();
     let today = new Date();
@@ -102,11 +122,9 @@ class App extends React.Component {
       today.getMinutes() +
       ":" +
       today.getSeconds();
-    const newNoteName = this.state.tempNoteName;
+    const newNoteName = this.state.tempNoteName.value;
     const newNoteContent = this.state.tempNoteContent;
-    const newFolderLocation = this.state.folders.find(
-      folder => this.state.tempNoteLocation === folder.name
-    ).id;
+    const newFolderLocation = this.state.tempNoteLocation;
     const noteUrl = "http://localhost:9090/notes";
     fetch(noteUrl, {
       method: "POST",
@@ -131,15 +149,18 @@ class App extends React.Component {
       })
       .catch(error => console.log(error));
     this.setState({
-      tempNoteName: "",
+      tempNoteName: {
+        value: "",
+        touched: false
+      },
       tempNoteContent: "",
-      tempNoteLocation: ""
+      tempNoteLocation: "Important"
     });
   };
 
   handleFolderSubmit = event => {
     event.preventDefault();
-    const folderName = this.state.tempFolderName;
+    const folderName = this.state.tempFolderName.value;
     console.log(JSON.stringify(folderName));
     const folderUrl = "http://localhost:9090/folders";
     fetch(folderUrl, {
@@ -197,7 +218,11 @@ class App extends React.Component {
       addTempFolder: this.addTempFolder,
       addTempNoteName: this.addTempNoteName,
       addTempNoteContent: this.addTempNoteContent,
-      addTempNoteLocation: this.addTempNoteLocation
+      addTempNoteLocation: this.addTempNoteLocation,
+      tempFolderName: this.state.tempFolderName,
+      tempNoteName: this.state.tempNoteName,
+      tempNoteLocation: this.state.tempNoteLocation,
+      getFolderId: this.getFolderId
     };
     return (
       <NotefulContext.Provider value={contextValue}>
@@ -221,7 +246,7 @@ class App extends React.Component {
               />
               <Route
                 exact
-                path="/folder/:id"
+                path="/folder/:name"
                 render={({ match, history }) => (
                   <NoteList history={history} match={match} />
                 )}
@@ -238,8 +263,16 @@ class App extends React.Component {
                   />
                 )}
               />
-              <Route exact path="/addnote" component={AddNote} />
-              <Route exact path="/addfolder" component={AddFolder} />
+              <Route
+                exact
+                path="/addnote"
+                render={({ history }) => <AddNote history={history} />}
+              />
+              <Route
+                exact
+                path="/addfolder"
+                render={({ history }) => <AddFolder history={history} />}
+              />
               <Route render={() => <p>There are no notes to display.</p>} />
             </Switch>
           </ErrorBoundary>

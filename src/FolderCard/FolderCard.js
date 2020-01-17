@@ -9,7 +9,7 @@ class FolderCard extends Component {
   render() {
     const folders = this.context.folders.map(folder => (
       <li key={folder.id} className="folderInstance">
-        <NavLink to={`/folder/${folder.id}`}>
+        <NavLink to={`/folder/${folder.name}`}>
           <h2 className="folderName">{folder.name}</h2>
         </NavLink>
       </li>

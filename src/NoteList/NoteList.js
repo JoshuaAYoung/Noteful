@@ -24,7 +24,13 @@ class NoteList extends Component {
                 </ErrorBoundary>
               ))
             : this.context.notes
-                .filter(note => note.folderId === this.props.match.params.id)
+                .filter(
+                  note =>
+                    note.folderId ===
+                    this.context.folders.find(
+                      folder => this.props.match.params.name === folder.name
+                    ).id
+                )
                 .map(note => (
                   <ErrorBoundary key={note.id}>
                     <li className="noteInstance" key={note.id}>

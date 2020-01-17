@@ -1,25 +1,32 @@
 import React, { Component } from "react";
 import NotefulContext from "../NotefulContext";
 import "./AddNote.css";
+import ValidationError from "../ValidationError";
 
 export default class AddNote extends Component {
   static contextType = NotefulContext;
 
-  validateField(fieldValue) {
-    const name = this.state.name.value.trim();
+  onSubmit = e => {
+    console.log("before", this.context.tempNoteLocation);
+    this.context.handleAddNote(e);
+    console.log("after", this.context.tempNoteLocation);
+    this.props.history.push(`/folder/${this.context.tempNoteLocation}`);
+  };
+
+  validateName() {
+    const name = this.context.tempNoteName.value;
     if (name.length === 0) {
-      return "Name is required";
-    } else if (name.length < 3) {
-      return "Name must be at least 3 characters long";
+      return "Please enter a name for your note";
     }
   }
 
   render() {
+    const nameError = this.validateName();
     const folders = this.context.folders;
     return (
       <div className="noteFormContainer">
         <h2 className="formTitle">Create Note</h2>
-        <form className="form" onSubmit={e => this.context.handleAddNote(e)}>
+        <form className="form" onSubmit={e => this.onSubmit(e)}>
           <label htmlFor="addNoteName" className="inputLabel">
             Note Name:
           </label>
@@ -50,7 +57,16 @@ export default class AddNote extends Component {
               <option key={folder.id}>{folder.name}</option>
             ))}
           </select>
-          <button type="submit" className="submitButton">
+          <div className="error">
+            {this.context.tempNoteName.touched && (
+              <ValidationError message={nameError} />
+            )}
+          </div>
+          <button
+            type="submit"
+            className="submitButton"
+            disabled={this.validateName()}
+          >
             Add note
           </button>
         </form>
