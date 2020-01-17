@@ -35,6 +35,7 @@ export default class AddNote extends Component {
             id="addNoteName"
             className="formInput"
             onChange={e => this.context.addTempNoteName(e.target.value)}
+            placeholder="required"
           />
           <label htmlFor="folder" className="inputLabel">
             Note Content:

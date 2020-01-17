@@ -32,7 +32,7 @@ class AddFolder extends Component {
             className="formInput"
             name="folder"
             id="folder"
-            defaultValue=""
+            placeholder="required"
             onChange={e => this.context.addTempFolder(e.target.value)}
           />
           <div className="error">
