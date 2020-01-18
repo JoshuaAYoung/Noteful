@@ -163,7 +163,7 @@ class App extends React.Component {
     const folderName = this.state.tempFolderName.value;
     console.log(JSON.stringify(folderName));
     const folderUrl = "http://localhost:9090/folders";
-    fetch(folderUrl, {
+    return fetch(folderUrl, {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -179,7 +179,7 @@ class App extends React.Component {
       })
       .then(folder => {
         this.addFolder(folder);
-        this.addTempFolder("");
+        // this.addTempFolder("");
       })
       .catch(error => console.log(error));
   };
