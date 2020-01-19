@@ -23,13 +23,20 @@ class App extends React.Component {
       touched: false
     },
     tempNoteContent: "",
-    tempNoteLocation: "Important"
+    tempNoteLocation: "",
+    currentFolder: ""
   };
 
   setFolders = folders => {
     this.setState({
       folders,
       error: null
+    });
+  };
+
+  setCurrentFolder = folderName => {
+    this.setState({
+      currentFolder: folderName
     });
   };
 
@@ -57,8 +64,8 @@ class App extends React.Component {
     });
   };
 
-  addTempNoteLocation = folderLocation => {
-    this.setState({ tempNoteLocation: folderLocation });
+  addTempNoteLocation = folderName => {
+    this.setState({ tempNoteLocation: folderName });
   };
 
   setNotes = notes => {
@@ -102,13 +109,28 @@ class App extends React.Component {
 
   getFolderId = (e, name) => {
     e.preventDefault();
-    console.log("callback", name);
-    console.log(this.state.folders.find(folder => name === folder.name));
     return this.state.folders.find(folder => name === folder.name).id;
+  };
+
+  getTempFolderId = () => {
+    ("grabbing temp folder");
+    console.log(this.state.notes);
+    if (this.state.tempNoteLocation.length > 0) {
+      console.log(this.state.tempNoteLocation);
+      console.log("conditional true");
+      const newFolderId = this.state.folders.find(
+        folder => folder.name === this.state.tempNoteLocation
+      ).id;
+      return newFolderId;
+    } else {
+      console.log("conditional false");
+      return "";
+    }
   };
 
   handleAddNote = event => {
     event.preventDefault();
+    console.log("handleAddNote Running");
     let today = new Date();
     let timeModified =
       today.getFullYear() +
@@ -124,7 +146,7 @@ class App extends React.Component {
       today.getSeconds();
     const newNoteName = this.state.tempNoteName.value;
     const newNoteContent = this.state.tempNoteContent;
-    const newFolderLocation = this.state.tempNoteLocation;
+    const newFolderId = this.getTempFolderId();
     const noteUrl = "http://localhost:9090/notes";
     fetch(noteUrl, {
       method: "POST",
@@ -134,7 +156,7 @@ class App extends React.Component {
       body: JSON.stringify({
         name: newNoteName,
         modified: timeModified,
-        folderId: newFolderLocation,
+        folderId: newFolderId,
         content: newNoteContent
       })
     })
@@ -154,7 +176,7 @@ class App extends React.Component {
         touched: false
       },
       tempNoteContent: "",
-      tempNoteLocation: "Important"
+      tempNoteLocation: ""
     });
   };
 
@@ -222,7 +244,8 @@ class App extends React.Component {
       tempFolderName: this.state.tempFolderName,
       tempNoteName: this.state.tempNoteName,
       tempNoteLocation: this.state.tempNoteLocation,
-      getFolderId: this.getFolderId
+      getFolderId: this.getFolderId,
+      setCurrentFolder: this.setCurrentFolder
     };
     return (
       <NotefulContext.Provider value={contextValue}>
@@ -233,7 +256,16 @@ class App extends React.Component {
         </header>
         <main className="mainContainer">
           <ErrorBoundary>
-            <Sidebar notes={this.state.notes} folders={this.state.folders} />
+            <Route
+              path="/"
+              render={({ match }) => (
+                <Sidebar
+                  notes={this.state.notes}
+                  folders={this.state.folders}
+                  match={match}
+                />
+              )}
+            />
           </ErrorBoundary>
           <ErrorBoundary>
             <Switch>
@@ -255,12 +287,14 @@ class App extends React.Component {
                 exact
                 path="/note/:id"
                 render={({ match, history }) => (
-                  <Note
-                    note={this.state.notes.find(
-                      note => note.id === match.params.id
-                    )}
-                    history={history}
-                  />
+                  <div className="noteContentContainer">
+                    <Note
+                      note={this.state.notes.find(
+                        note => note.id === match.params.id
+                      )}
+                      history={history}
+                    />
+                  </div>
                 )}
               />
               <Route

@@ -7,10 +7,12 @@ export default class AddNote extends Component {
   static contextType = NotefulContext;
 
   onSubmit = e => {
-    console.log("before", this.context.tempNoteLocation);
     this.context.handleAddNote(e);
-    console.log("after", this.context.tempNoteLocation);
-    this.props.history.push(`/folder/${this.context.tempNoteLocation}`);
+    if (this.context.tempNoteLocation.length > 0) {
+      this.props.history.push(`/folder/${this.context.tempNoteLocation}`);
+    } else {
+      this.props.history.push("/");
+    }
   };
 
   validateName() {
@@ -54,6 +56,7 @@ export default class AddNote extends Component {
             className="dropdown"
             onChange={e => this.context.addTempNoteLocation(e.target.value)}
           >
+            <option value="">...</option>
             {folders.map(folder => (
               <option key={folder.id}>{folder.name}</option>
             ))}

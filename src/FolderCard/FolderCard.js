@@ -10,7 +10,16 @@ class FolderCard extends Component {
     const folders = this.context.folders.map(folder => (
       <li key={folder.id} className="folderInstance">
         <NavLink to={`/folder/${folder.name}`}>
-          <h2 className="folderName">{folder.name}</h2>
+          <h2
+            className={
+              "folderName " +
+              (this.props.location.pathname === "/folder/" + folder.name
+                ? "highlight"
+                : "")
+            }
+          >
+            {folder.name}
+          </h2>
         </NavLink>
       </li>
     ));

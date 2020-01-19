@@ -30,11 +30,19 @@ class Sidebar extends Component {
                       }).name
                     }
                   </h2>
-                  <button className="backButton" onClick={routerProps.history.goBack}>Back</button>
+                  <button
+                    className="backButton"
+                    onClick={routerProps.history.goBack}
+                  >
+                    Back
+                  </button>
                 </>
               )}
             />
-            <Route component={FolderCard} />
+            <Route
+              component={FolderCard}
+              // matchName={routerprops.match.params.name}
+            />
           </Switch>
         </ErrorBoundary>
       </div>

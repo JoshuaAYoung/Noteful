@@ -90,3 +90,9 @@ li {
 .inputLabel {
   margin-top: 8px;
 }
+
+.noteContentContainer {
+  width: 80%;
+  margin-right: 50px;
+  align-self: flex-start;
+}
