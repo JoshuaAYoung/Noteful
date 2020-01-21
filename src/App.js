@@ -113,24 +113,19 @@ class App extends React.Component {
   };
 
   getTempFolderId = () => {
-    ("grabbing temp folder");
-    console.log(this.state.notes);
     if (this.state.tempNoteLocation.length > 0) {
-      console.log(this.state.tempNoteLocation);
-      console.log("conditional true");
       const newFolderId = this.state.folders.find(
         folder => folder.name === this.state.tempNoteLocation
       ).id;
       return newFolderId;
     } else {
-      console.log("conditional false");
       return "";
     }
   };
 
   handleAddNote = event => {
     event.preventDefault();
-    console.log("handleAddNote Running");
+
     let today = new Date();
     let timeModified =
       today.getFullYear() +
@@ -201,7 +196,6 @@ class App extends React.Component {
       })
       .then(folder => {
         this.addFolder(folder);
-        // this.addTempFolder("");
       })
       .catch(error => console.log(error));
   };
