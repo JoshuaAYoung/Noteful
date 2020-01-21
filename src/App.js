@@ -243,7 +243,7 @@ class App extends React.Component {
     };
     return (
       <NotefulContext.Provider value={contextValue}>
-        <header>
+        <header className="headerContainer">
           <Link to="/" className="appTitle">
             <h1>Noteful</h1>
           </Link>

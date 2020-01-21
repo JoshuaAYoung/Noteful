@@ -1,7 +1,7 @@
 .noteListContainer {
-  width: 80%;
   display: block;
   align-self: flex-start;
+  padding: 10px;
 }
 
 .noteList {
@@ -10,12 +10,36 @@
   flex-wrap: wrap;
 }
 
+.noteButton {
+  margin-left: 20px;
+}
+
 .noteInstance {
   display: block;
   width: auto;
-  margin: 20px;
+  margin: 0 20px 0;
 }
 
 .formTitle {
   margin-bottom: 15px;
+}
+
+@media only screen and (max-width: 560px) {
+  .noteListContainer {
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding-top: 0;
+  }
+  .noteList {
+    flex-direction: column;
+    align-items: center;
+  }
+  .noteInstance {
+    text-align: center;
+  }
+  .noteButton {
+    margin-left: 0;
+  }
 }
