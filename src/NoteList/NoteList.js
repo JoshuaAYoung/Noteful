@@ -11,7 +11,7 @@ class NoteList extends Component {
   render() {
     return (
       <div className="noteListContainer">
-        <Link to="/addnote" className="addButton">
+        <Link to="/addnote" className="addButton noteButton">
           + Add a note
         </Link>
         <ul className="noteList">

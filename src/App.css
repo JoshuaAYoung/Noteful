@@ -13,6 +13,10 @@ li {
   list-style: none;
 }
 
+h1 {
+  margin: 0;
+}
+
 h1,
 h2,
 h3 {
@@ -31,9 +35,7 @@ li {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
-  align-content: center;
-  flex-wrap: wrap;
+  height: 100%;
 }
 
 .appTitle {
@@ -66,15 +68,15 @@ li {
   display: inline-block;
   font-size: 1rem;
   padding: 0.35em 1.2em;
-  width: auto;
-  text-align: center;
+  width: 145px;
   border: 0.1em solid black;
   border-radius: 0.2em;
-  margin: 0 0.3em 0.3em 0;
+  margin-top: 15px;
   text-decoration: none;
   text-align: center;
   transition: all 0.2s;
-  background-color: transparent;
+  background-color: white;
+  align-self: center;
 }
 
 .addButton:hover {
@@ -95,4 +97,21 @@ li {
   width: 80%;
   margin-right: 50px;
   align-self: flex-start;
+}
+
+.headerContainer {
+  padding: 35px 0;
+  background-color: rgb(235, 235, 235);
+  border-bottom: 1px solid rgb(97, 97, 97);
+}
+
+@media only screen and (max-width: 560px) {
+  .mainContainer {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .headerContainer {
+    border-bottom: none;
+  }
 }
