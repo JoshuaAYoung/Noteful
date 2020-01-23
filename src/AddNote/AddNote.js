@@ -16,9 +16,13 @@ export default class AddNote extends Component {
   };
 
   validateName() {
-    const name = this.context.tempNoteName.value;
+    const name = this.context.tempNoteName;
+    const folder = this.context.tempNoteLocation;
     if (name.length === 0) {
       return "Please enter a name for your note";
+    }
+    if (!folder || folder.length === 0) {
+      return "Please select the folder for a note"
     }
   }
 
