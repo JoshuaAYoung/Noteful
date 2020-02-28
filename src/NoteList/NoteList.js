@@ -26,7 +26,7 @@ class NoteList extends Component {
             : this.context.notes
                 .filter(
                   note =>
-                    note.folderId ===
+                    note.folderid ===
                     this.context.folders.find(
                       folder => this.props.match.params.name === folder.name
                     ).id

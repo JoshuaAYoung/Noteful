@@ -7,10 +7,11 @@ class AddFolder extends Component {
   static contextType = NotefulContext;
 
   onSubmit = e => {
-    this.context.handleFolderSubmit(e).then(() => {
-      this.props.history.push(`/folder/${this.context.tempFolderName.value}`);
-      this.context.addTempFolder("");
-    });
+    this.context.handleAddFolder(e)
+      .then(() => {
+        this.props.history.push(`/folder/${this.context.tempFolderName.value}`);
+        this.context.addTempFolder("");
+      });
   };
 
   validateName() {

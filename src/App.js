@@ -84,8 +84,8 @@ class App extends React.Component {
   };
 
   fetchApi() {
-    const folderUrl = "http://localhost:9090/folders";
-    const notesUrl = "http://localhost:9090/notes";
+    const folderUrl = "http://localhost:8000/api/folders";
+    const notesUrl = "http://localhost:8000/api/notes";
     fetch(folderUrl)
       .then(res => {
         if (!res.ok) {
@@ -141,8 +141,8 @@ class App extends React.Component {
       today.getSeconds();
     const newNoteName = this.state.tempNoteName.value;
     const newNoteContent = this.state.tempNoteContent;
-    const newFolderId = this.getTempFolderId();
-    const noteUrl = "http://localhost:9090/notes";
+    const newFolderId = parseInt(this.getTempFolderId());
+    const noteUrl = "http://localhost:8000/api/notes";
     fetch(noteUrl, {
       method: "POST",
       headers: {
@@ -151,7 +151,7 @@ class App extends React.Component {
       body: JSON.stringify({
         name: newNoteName,
         modified: timeModified,
-        folderId: newFolderId,
+        folderid: newFolderId,
         content: newNoteContent
       })
     })
@@ -175,15 +175,14 @@ class App extends React.Component {
     });
   };
 
-  handleFolderSubmit = event => {
+  handleAddFolder = event => {
     event.preventDefault();
     const folderName = this.state.tempFolderName.value;
-    console.log(JSON.stringify(folderName));
-    const folderUrl = "http://localhost:9090/folders";
+    const folderUrl = "http://localhost:8000/api/folders";
     return fetch(folderUrl, {
       method: "POST",
       headers: {
-        Accept: "application/json",
+        // Accept: "application/json",
         "content-type": "application/json"
       },
       body: JSON.stringify({ name: folderName })
@@ -201,7 +200,7 @@ class App extends React.Component {
   };
 
   deleteNote = noteId => {
-    const noteUrl = `http://localhost:9090/notes/${noteId}`;
+    const noteUrl = `http://localhost:8000/api/notes/${noteId}`;
     fetch(noteUrl, {
       method: "DELETE",
       headers: {
@@ -229,7 +228,7 @@ class App extends React.Component {
       notes: this.state.notes,
       folders: this.state.folders,
       deleteNote: this.deleteNote,
-      handleFolderSubmit: this.handleFolderSubmit,
+      handleAddFolder: this.handleAddFolder,
       handleAddNote: this.handleAddNote,
       addTempFolder: this.addTempFolder,
       addTempNoteName: this.addTempNoteName,

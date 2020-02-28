@@ -22,10 +22,13 @@ class Sidebar extends Component {
                 <>
                   <h2 className="noteContent">
                     {
+                      // finds folder from props(state) where...
                       this.props.folders.find(folder => {
+                        // ...the folderid variable here that equals...
                         const folderId = this.props.notes.find(
-                          note => note.id === routerProps.match.params.id
-                        ).folderId;
+                          // ...the folderid value from the props(state) notes object equals the match params (path) id
+                          note => note.id === parseInt(routerProps.match.params.id)
+                        ).folderid;
                         return folderId === folder.id;
                       }).name
                     }
@@ -41,7 +44,6 @@ class Sidebar extends Component {
             />
             <Route
               component={FolderCard}
-              // matchName={routerprops.match.params.name}
             />
           </Switch>
         </ErrorBoundary>
@@ -53,7 +55,7 @@ class Sidebar extends Component {
 Sidebar.propTypes = {
   folders: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.string.isRequired,
+      id: PropTypes.number.isRequired,
       name: PropTypes.string.isRequired
     })
   ).isRequired
@@ -62,10 +64,10 @@ Sidebar.propTypes = {
 Sidebar.propTypes = {
   notes: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.string.isRequired,
+      id: PropTypes.number.isRequired,
       name: PropTypes.string.isRequired,
       modified: PropTypes.string.isRequired,
-      folderId: PropTypes.string.isRequired,
+      folderid: PropTypes.number.isRequired,
       content: PropTypes.string.isRequired
     })
   )

@@ -9,7 +9,7 @@ class Note extends Component {
 
   onDelete = () => {
     this.context.deleteNote(this.props.note.id);
-    this.props.history.push("/");
+    // this.props.history.push("/");
   };
 
   render() {
@@ -34,7 +34,7 @@ class Note extends Component {
 Note.propTypes = {
   notes: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.string.isRequired,
+      id: PropTypes.number.isRequired,
       name: PropTypes.string.isRequired,
       modified: PropTypes.string.isRequired,
       content: PropTypes.string.isRequired

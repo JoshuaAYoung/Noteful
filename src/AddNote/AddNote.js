@@ -22,7 +22,7 @@ export default class AddNote extends Component {
       return "Please enter a name for your note";
     }
     if (!folder || folder.length === 0) {
-      return "Please select the folder for a note"
+      return "Please select a folder for your note"
     }
   }
 
