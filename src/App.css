@@ -95,6 +95,7 @@ li {
 .noteContentContainer {
   width: 80%;
   margin-right: 50px;
+  padding: 42px, 0, 0, 30px;
   align-self: flex-start;
 }
 

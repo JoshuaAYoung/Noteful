@@ -86,25 +86,35 @@ class App extends React.Component {
   fetchApi() {
     const folderUrl = "http://localhost:8000/api/folders";
     const notesUrl = "http://localhost:8000/api/notes";
-    fetch(folderUrl)
-      .then(res => {
-        if (!res.ok) {
-          throw new Error(res.status);
+    Promise.all([fetch(folderUrl), fetch(notesUrl)])
+      .then(([resF, resN]) => {
+        if (!resF.ok) {
+          throw new Error(resF.status);
         }
-        return res.json();
+        if (!resN.ok) {
+          throw new Error(resN.status);
+        }
+        return Promise.all([resF.json(), resN.json()]);
       })
-      .then(this.setFolders)
+      // .then(this.setFolders)
+      .then(([folders, notes]) => {
+        this.setState({
+          folders,
+          error: null,
+          notes
+        })
+      })
       .catch(error => this.setState({ error }));
 
-    fetch(notesUrl)
-      .then(res => {
-        if (!res.ok) {
-          throw new Error(res.status);
-        }
-        return res.json();
-      })
-      .then(this.setNotes)
-      .catch(error => this.setState({ error }));
+    // fetch(notesUrl)
+    //   .then(res => {
+    //     if (!res.ok) {
+    //       throw new Error(res.status);
+    //     }
+    //     return res.json();
+    //   })
+    //   .then(this.setNotes)
+    //   .catch(error => this.setState({ error }));
   }
 
   getFolderId = (e, name) => {
@@ -251,11 +261,12 @@ class App extends React.Component {
           <ErrorBoundary>
             <Route
               path="/"
-              render={({ match }) => (
+              render={({ history, match }) => (
                 <Sidebar
                   notes={this.state.notes}
                   folders={this.state.folders}
                   match={match}
+                  history={history}
                 />
               )}
             />
@@ -283,7 +294,7 @@ class App extends React.Component {
                   <div className="noteContentContainer">
                     <Note
                       note={this.state.notes.find(
-                        note => note.id === match.params.id
+                        note => note.id === parseInt(match.params.id)
                       )}
                       history={history}
                     />

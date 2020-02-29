@@ -31,6 +31,10 @@ class Note extends Component {
   }
 }
 
+Note.defaultProps = {
+  note: {}
+}
+
 Note.propTypes = {
   notes: PropTypes.arrayOf(
     PropTypes.shape({

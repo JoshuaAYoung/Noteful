@@ -6,7 +6,22 @@ import ErrorBoundary from "../ErrorBoundary";
 import PropTypes from "prop-types";
 
 class Sidebar extends Component {
+
+  findFolder = (routerProps) => {
+    const folder = this.props.folders.find(folder => {
+      const folderFound = this.props.notes.find(
+        note => {
+          return note.id === parseInt(routerProps.match.params.id)
+        }
+      );
+      console.log("inside function", folder)
+      return folderFound ? folderFound.folderid === folder.id : this.props.history.push("/");
+    })
+    console.log("folder and props folder", folder, this.props.folders);
+    return folder ? folder.name : "";
+  }
   render() {
+    console.log(this.props.notes, this.props.folders)
     return (
       <div className="sidebar">
         <ErrorBoundary>
@@ -20,18 +35,8 @@ class Sidebar extends Component {
               path="/note/:id"
               render={routerProps => (
                 <>
-                  <h2 className="noteContent">
-                    {
-                      // finds folder from props(state) where...
-                      this.props.folders.find(folder => {
-                        // ...the folderid variable here that equals...
-                        const folderId = this.props.notes.find(
-                          // ...the folderid value from the props(state) notes object equals the match params (path) id
-                          note => note.id === parseInt(routerProps.match.params.id)
-                        ).folderid;
-                        return folderId === folder.id;
-                      }).name
-                    }
+                  <h2 className="folderTitle">
+                    {this.findFolder(routerProps)}
                   </h2>
                   <button
                     className="backButton"
