@@ -3,48 +3,9 @@
 }
 
 .noteFormContainer {
-  margin-right: auto;
+  margin: 20px auto 0 40px;
   align-self: flex-start;
 }
 
 
-.submitButton {
-  box-sizing: border-box;
-  max-width: 100px;
-  display: inline-block;
-  font-size: 1rem;
-  padding: 0.35em 1.2em;
-  text-align: center;
-  border:0.1em solid black;
-  border-radius: 0.20em;
-  margin: 0 0.3em 0.3em 0;
-  text-decoration: none;
-  text-align: center;
-  transition: all 0.2s;
-  background-color: transparent;
-  margin-top: 10px;  
-  cursor: pointer;
-  display: block;
-}
-
-.submitButton:hover {
-  color:#000000;
-  background-color:rgb(173, 167, 228);;
-}
-
-.inputLabel {
-  display: block;
-  font-weight: 500;
-}
-
-.formTitle {
-  font-family: "Montserrat", sans-serif;
-  font-size: 20px;
-  min-height: 20px;
-}
-
-.formInput {
-  font-family: "Montserrat", sans-serif;
-  min-height: 14px;
-}
 

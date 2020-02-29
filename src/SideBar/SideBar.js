@@ -7,21 +7,18 @@ import PropTypes from "prop-types";
 
 class Sidebar extends Component {
 
-  findFolder = (routerProps) => {
+  findFolderName = (routerProps) => {
     const folder = this.props.folders.find(folder => {
       const folderFound = this.props.notes.find(
         note => {
           return note.id === parseInt(routerProps.match.params.id)
         }
       );
-      console.log("inside function", folder)
       return folderFound ? folderFound.folderid === folder.id : this.props.history.push("/");
     })
-    console.log("folder and props folder", folder, this.props.folders);
     return folder ? folder.name : "";
   }
   render() {
-    console.log(this.props.notes, this.props.folders)
     return (
       <div className="sidebar">
         <ErrorBoundary>
@@ -35,8 +32,8 @@ class Sidebar extends Component {
               path="/note/:id"
               render={routerProps => (
                 <>
-                  <h2 className="folderTitle">
-                    {this.findFolder(routerProps)}
+                  <h2 className="folderName highlight">
+                    {this.findFolderName(routerProps)}
                   </h2>
                   <button
                     className="backButton"

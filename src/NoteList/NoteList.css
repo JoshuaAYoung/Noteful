@@ -26,10 +26,6 @@
   margin-bottom: 15px;
 }
 
-.noteContentContainer {
-  margin: 42px, 0, 0, 30px
-}
-
 @media only screen and (max-width: 560px) {
   .noteListContainer {
     align-self: center;

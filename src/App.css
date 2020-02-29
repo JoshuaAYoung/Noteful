@@ -95,7 +95,7 @@ li {
 .noteContentContainer {
   width: 80%;
   margin-right: 50px;
-  padding: 42px, 0, 0, 30px;
+  padding-left: 30px;
   align-self: flex-start;
 }
 
@@ -103,6 +103,44 @@ li {
   padding: 35px 0;
   background-color: rgb(235, 235, 235);
   border-bottom: 1px solid rgb(97, 97, 97);
+}
+
+
+.submitButton {
+  box-sizing: border-box;
+  max-width: 100px;
+  font-size: 1rem;
+  padding: 0.35em 1.2em;
+  border:0.1em solid black;
+  border-radius: 0.20em;
+  margin-top: 20px;
+  text-decoration: none;
+  text-align: center;
+  transition: all 0.2s;
+  background-color: transparent; 
+  cursor: pointer;
+  display: block;
+}
+
+.submitButton:hover {
+  color:#000000;
+  background-color:rgb(173, 167, 228);;
+}
+
+.inputLabel {
+  display: block;
+  font-weight: 500;
+}
+
+.formTitle {
+  font-family: "Montserrat", sans-serif;
+  font-size: 20px;
+  min-height: 20px;
+}
+
+.formInput {
+  font-family: "Montserrat", sans-serif;
+  min-height: 14px;
 }
 
 @media only screen and (max-width: 560px) {

@@ -1,3 +1,15 @@
-.highlight {
-  background-color: rgb(173, 167, 228);
+.highlight:before {
+  content: "";
+  background: rgb(173, 167, 228);
+  position: absolute;
+  right: 40px;
+  top: 12px;
+  width: 100px;
+  height: 17px;
+  z-index: -1;
+}
+
+.folderName {
+  position: relative;
+  z-index: 2;
 }

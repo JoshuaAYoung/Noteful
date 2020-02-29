@@ -9,7 +9,6 @@ class Note extends Component {
 
   onDelete = () => {
     this.context.deleteNote(this.props.note.id);
-    // this.props.history.push("/");
   };
 
   render() {
@@ -18,11 +17,11 @@ class Note extends Component {
         <Link to={`/note/${this.props.note.id}`} className="noteTitle">
           <h3>{this.props.note.name}</h3>
         </Link>
-        <p className="noteDate">{this.props.note.modified}</p>
         <Route
           path="/note/:id"
-          render={() => <p>{this.props.note.content}</p>}
+          render={() => <p className="noteContent">{this.props.note.content}</p>}
         />
+        <p className="noteDate">Modified: {new Date(this.props.note.modified).toDateString()}</p>
         <button onClick={this.onDelete} className="deleteButton">
           Delete
         </button>
