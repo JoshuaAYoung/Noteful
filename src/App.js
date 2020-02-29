@@ -1,5 +1,6 @@
 import React from "react";
 import "./App.css";
+import config from './config.js'
 import { Route, Link, Switch } from "react-router-dom";
 import Sidebar from "./SideBar/SideBar";
 import NoteList from "./NoteList/NoteList";
@@ -84,8 +85,8 @@ class App extends React.Component {
   };
 
   fetchApi() {
-    const folderUrl = "http://localhost:8000/api/folders";
-    const notesUrl = "http://localhost:8000/api/notes";
+    const folderUrl = `${config.API_ENDPOINT}api/folders`;
+    const notesUrl = `${config.API_ENDPOINT}api/notes`;
     Promise.all([fetch(folderUrl), fetch(notesUrl)])
       .then(([resF, resN]) => {
         if (!resF.ok) {
@@ -96,7 +97,6 @@ class App extends React.Component {
         }
         return Promise.all([resF.json(), resN.json()]);
       })
-      // .then(this.setFolders)
       .then(([folders, notes]) => {
         this.setState({
           folders,
@@ -105,16 +105,6 @@ class App extends React.Component {
         })
       })
       .catch(error => this.setState({ error }));
-
-    // fetch(notesUrl)
-    //   .then(res => {
-    //     if (!res.ok) {
-    //       throw new Error(res.status);
-    //     }
-    //     return res.json();
-    //   })
-    //   .then(this.setNotes)
-    //   .catch(error => this.setState({ error }));
   }
 
   getFolderId = (e, name) => {
@@ -152,7 +142,7 @@ class App extends React.Component {
     const newNoteName = this.state.tempNoteName.value;
     const newNoteContent = this.state.tempNoteContent;
     const newFolderId = parseInt(this.getTempFolderId());
-    const noteUrl = "http://localhost:8000/api/notes";
+    const noteUrl = `${config.API_ENDPOINT}api/notes`;
     fetch(noteUrl, {
       method: "POST",
       headers: {
@@ -188,11 +178,10 @@ class App extends React.Component {
   handleAddFolder = event => {
     event.preventDefault();
     const folderName = this.state.tempFolderName.value;
-    const folderUrl = "http://localhost:8000/api/folders";
+    const folderUrl = `${config.API_ENDPOINT}api/folders`;
     return fetch(folderUrl, {
       method: "POST",
       headers: {
-        // Accept: "application/json",
         "content-type": "application/json"
       },
       body: JSON.stringify({ name: folderName })
@@ -210,7 +199,7 @@ class App extends React.Component {
   };
 
   deleteNote = noteId => {
-    const noteUrl = `http://localhost:8000/api/notes/${noteId}`;
+    const noteUrl = `${config.API_ENDPOINT}api/notes/${noteId}`;
     fetch(noteUrl, {
       method: "DELETE",
       headers: {
